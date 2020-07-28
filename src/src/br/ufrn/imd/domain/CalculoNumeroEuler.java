@@ -7,28 +7,28 @@ import br.ufrn.imd.exception.FatorInvalidoException;
  *
  * @author Rodolpho Erick - rodolphoess@gmail.com
  */
-public class CalculoNumeroEuler {
+public class CalculoNumeroEuler implements Runnable {
 
+    private final int fator;
     private double resultado;
 
-    /**
-     * Método para cálculo do número de Euler.
-     *
-     * @param fator Número 'n' para cálculo do número de euler.
-     *
-     * @return Retorna o número de euler ao final do cálculo.
-     * @throws FatorInvalidoException Retorna uma exceção caso seja informado um valor negativo.
-     */
-    public double numeroDeEuler(int fator) throws FatorInvalidoException {
+    public CalculoNumeroEuler(int fator) throws FatorInvalidoException {
         if (fator < 0) {
             throw new FatorInvalidoException("O número informado para cálculo do Número de Euler deve ser um número natural.");
         }
 
+        this.fator = fator;
+    }
+
+    /**
+     * Realiza o cálculo do número de euler fazendo uso da concorrência.
+     */
+    @Override
+    public void run() {
+
         for (int i = 1; i < fator; i++) {
             resultado = resultado + 1 / fatorial(i);
         }
-
-        return resultado;
     }
 
     /**
