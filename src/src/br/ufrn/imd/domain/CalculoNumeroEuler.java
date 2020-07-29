@@ -5,7 +5,9 @@ import br.ufrn.imd.exception.FatorInvalidoException;
 import java.util.concurrent.RecursiveAction;
 
 /**
- * Classe para realizar todas as operações necessárias para o cálculo do número de Euler.
+ * Classe para realizar todas as operações necessárias para o cálculo do número de Euler. Ela extende RecursiveAction para
+ * o cálculo do número de euler utilizando a Work Stealing Thread Pool, e Runnable para o cálculo utilizando Fixed e Cached
+ * Thread Pool.
  *
  * @author Rodolpho Erick - rodolphoess@gmail.com
  */
