@@ -23,6 +23,7 @@ public class FixedThreadPool {
 
         entradasUsuario();
 
+        double tempoInicial = System.currentTimeMillis();
         ExecutorService executor = Executors.newFixedThreadPool(numeroThreads);
 
         Runnable task = new CalculoNumeroEuler(fatorCalculo);
@@ -30,6 +31,9 @@ public class FixedThreadPool {
 
         executor.execute(task);
         executor.shutdown();
+        double tempoFinal = System.currentTimeMillis();
+
+        System.out.println("\nTempo de execução: " + (tempoFinal - tempoInicial));
     }
 
     /**

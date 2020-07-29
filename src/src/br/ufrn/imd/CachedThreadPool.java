@@ -22,6 +22,7 @@ public class CachedThreadPool {
 
         entradasUsuario();
 
+        double tempoInicial = System.currentTimeMillis();
         ExecutorService executor = Executors.newCachedThreadPool();
 
         Runnable task = new CalculoNumeroEuler(fatorCalculo);
@@ -29,6 +30,9 @@ public class CachedThreadPool {
 
         executor.execute(task);
         executor.shutdown();
+        double tempoFinal = System.currentTimeMillis();
+
+        System.out.println("\nTempo de execução: " + (tempoFinal - tempoInicial));
     }
 
     /**

@@ -25,10 +25,14 @@ public class WorkStealingThreadPool {
         CalculoNumeroEuler ne = new CalculoNumeroEuler(fatorCalculo);
         System.out.println("\nExecutando cálculo do número de Euler utilizando a Work Stealing Thread Pool...");
 
+        double tempoInicial = System.currentTimeMillis();
         int parallelism = ForkJoinPool.getCommonPoolParallelism();
         ForkJoinPool stealer = (ForkJoinPool) Executors.newWorkStealingPool(parallelism);
         stealer.invoke(ne);
         stealer.shutdown();
+        double tempoFinal = System.currentTimeMillis();
+
+        System.out.println("\nTempo de execução: " + (tempoFinal - tempoInicial));
     }
 
     /**
