@@ -7,10 +7,9 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class FixedThreadPool {
+public class CachedThreadPool {
 
     private static int fatorCalculo = 0;
-    private static int numeroThreads = 0;
 
     /**
      * Método de inicialização da execução do programa Java que chamará a leitura dos dados do usuário, a instanciação das Threads
@@ -23,10 +22,10 @@ public class FixedThreadPool {
 
         entradasUsuario();
 
-        ExecutorService executor = Executors.newFixedThreadPool(numeroThreads);
+        ExecutorService executor = Executors.newCachedThreadPool();
 
         Runnable task = new CalculoNumeroEuler(fatorCalculo);
-        System.out.println("\nExecutando cálculo do número de Euler utilizando a Fixed Thread Pool...");
+        System.out.println("\nExecutando cálculo do número de Euler utilizando a Cached Thread Pool...");
 
         executor.execute(task);
         executor.shutdown();
@@ -42,11 +41,6 @@ public class FixedThreadPool {
         while (fatorCalculo <= 0) {
             System.out.print("\nInforme o fator para cálculo do Número de Euler: ");
             fatorCalculo = scanner.nextInt();
-        }
-
-        while (numeroThreads <= 0) {
-            System.out.print("\nInforme número de Threads que serão criadas para o cálculo: ");
-            numeroThreads = scanner.nextInt();
         }
     }
 
