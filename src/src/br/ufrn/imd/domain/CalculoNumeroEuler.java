@@ -2,12 +2,14 @@ package br.ufrn.imd.domain;
 
 import br.ufrn.imd.exception.FatorInvalidoException;
 
+import java.util.concurrent.RecursiveAction;
+
 /**
  * Classe para realizar todas as operações necessárias para o cálculo do número de Euler.
  *
  * @author Rodolpho Erick - rodolphoess@gmail.com
  */
-public class CalculoNumeroEuler implements Runnable {
+public class CalculoNumeroEuler extends RecursiveAction implements Runnable {
 
     private final int fator;
     private double resultado;
@@ -20,11 +22,20 @@ public class CalculoNumeroEuler implements Runnable {
         this.fator = fator;
     }
 
+    @Override
+    public void run() {
+        calculaNumeroEuler();
+    }
+
+    @Override
+    protected void compute() {
+        calculaNumeroEuler();
+    }
+
     /**
      * Realiza o cálculo do número de euler fazendo uso da concorrência.
      */
-    @Override
-    public void run() {
+    private void calculaNumeroEuler() {
         long idThread = Thread.currentThread().getId();
 
         System.out.println("\nThread em execução de ID " + idThread + ".");

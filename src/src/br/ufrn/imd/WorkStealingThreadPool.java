@@ -4,10 +4,10 @@ import br.ufrn.imd.domain.CalculoNumeroEuler;
 import br.ufrn.imd.exception.FatorInvalidoException;
 
 import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 
-public class CachedThreadPool {
+public class WorkStealingThreadPool {
 
     private static int fatorCalculo = 0;
 
@@ -22,13 +22,13 @@ public class CachedThreadPool {
 
         entradasUsuario();
 
-        ExecutorService executor = Executors.newCachedThreadPool();
+        CalculoNumeroEuler ne = new CalculoNumeroEuler(fatorCalculo);
+        System.out.println("\nExecutando cálculo do número de Euler utilizando a Work Stealing Thread Pool...");
 
-        Runnable task = new CalculoNumeroEuler(fatorCalculo);
-        System.out.println("\nExecutando cálculo do número de Euler utilizando a Cached Thread Pool...");
-
-        executor.execute(task);
-        executor.shutdown();
+        int parallelism = ForkJoinPool.getCommonPoolParallelism();
+        ForkJoinPool stealer = (ForkJoinPool) Executors.newWorkStealingPool(parallelism);
+        stealer.invoke(ne);
+        stealer.shutdown();
     }
 
     /**
