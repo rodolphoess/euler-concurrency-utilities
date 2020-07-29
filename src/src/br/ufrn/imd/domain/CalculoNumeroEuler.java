@@ -14,7 +14,7 @@ public class CalculoNumeroEuler implements Runnable {
 
     public CalculoNumeroEuler(int fator) throws FatorInvalidoException {
         if (fator < 0) {
-            throw new FatorInvalidoException("O número informado para cálculo do Número de Euler deve ser um número natural.");
+            throw new FatorInvalidoException("O fator informado para cálculo do Número de Euler deve ser um número natural.");
         }
 
         this.fator = fator;
@@ -25,10 +25,15 @@ public class CalculoNumeroEuler implements Runnable {
      */
     @Override
     public void run() {
+        long idThread = Thread.currentThread().getId();
+
+        System.out.println("\nThread em execução de ID " + idThread + ".");
 
         for (int i = 1; i < fator; i++) {
             resultado = resultado + 1 / fatorial(i);
         }
+
+        System.out.println("\nO número de Euler é: " + getResultado());
     }
 
     /**
